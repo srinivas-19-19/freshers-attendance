@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue, set, update } from "firebase/database";
 const firebaseConfig = {
   apiKey: "AIzaSyBJ1vjN" + "P6Jh7B-K2eDnLxPJ9ecSMFR0-og",
   authDomain: "freshers-attendance.firebaseapp.com",
-  databaseURL: "https://freshers-attendance-default-rtdb.firebaseio.com",
+  databaseURL: "https://freshers-attendance-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "freshers-attendance",
   storageBucket: "freshers-attendance.firebasestorage.app",
   messagingSenderId: "706051823093",
