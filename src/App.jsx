@@ -9,8 +9,10 @@ function App() {
   const [metaData, setMetaData] = useState({});
   const [activeRoom, setActiveRoom] = useState(null);
 
+  const API_URL = import.meta.env.VITE_API_URL || '/api/attendance';
+
   useEffect(() => {
-    fetch('/api/attendance')
+    fetch(API_URL)
       .then(res => res.json())
       .then(data => {
         if (data.attendance) setAttendance(data.attendance);
@@ -20,7 +22,7 @@ function App() {
   }, []);
 
   const saveToServer = (newAttendance, newMeta) => {
-    fetch('/api/attendance', {
+    fetch(API_URL, {
       method: 'POST',
       body: JSON.stringify({ attendance: newAttendance, metaData: newMeta }),
       headers: { 'Content-Type': 'application/json' }
