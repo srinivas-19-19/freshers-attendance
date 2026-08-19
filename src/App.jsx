@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import studentsData from './data/students.json';
 import Dashboard from './components/Dashboard';
 import StudentRow from './components/StudentRow';
+import { syncData, updateAttendance, updateMetaData } from './firebase';
 import './index.css';
 
 function App() {
@@ -9,33 +10,22 @@ function App() {
   const [metaData, setMetaData] = useState({});
   const [activeRoom, setActiveRoom] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || '/api/attendance';
-
   useEffect(() => {
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        if (data.attendance) setAttendance(data.attendance);
-        if (data.metaData) setMetaData(data.metaData);
-      })
-      .catch(err => console.error("Could not load data from server", err));
+    syncData((data) => {
+      if (data.attendance) setAttendance(data.attendance);
+      if (data.metaData) setMetaData(data.metaData);
+    });
   }, []);
-
-  const saveToServer = (newAttendance, newMeta) => {
-    fetch(API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ attendance: newAttendance, metaData: newMeta }),
-      headers: { 'Content-Type': 'application/json' }
-    }).catch(err => console.error("Could not save to server", err));
-  };
 
   const handleAttendanceChange = (studentId, status) => {
     const newAttendance = { ...attendance, [studentId]: status };
     if (status === null) {
       delete newAttendance[studentId];
     }
+    // We update local state immediately for fast UI feedback
     setAttendance(newAttendance);
-    saveToServer(newAttendance, metaData);
+    // Sync to Firebase
+    updateAttendance(newAttendance);
   };
 
   const handleMetaChange = (roomId, field, value) => {
@@ -46,8 +36,10 @@ function App() {
         [field]: value
       }
     };
+    // Update local state
     setMetaData(newMeta);
-    saveToServer(attendance, newMeta);
+    // Sync to Firebase
+    updateMetaData(newMeta);
   };
 
   const handlePrint = () => {
