@@ -1,0 +1,487 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --secondary: #ec4899;
+  --success: #10B981;
+  --danger: #EF4444;
+  --background: #f3f4f6;
+  --surface: #ffffff;
+  --text-main: #1f2937;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--background);
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* App Container */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.print-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+  font-family: 'Outfit', sans-serif;
+}
+
+.print-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4);
+}
+
+/* Dashboard */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.dash-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.dash-card:hover {
+  transform: translateY(-5px);
+}
+
+.dash-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dash-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+}
+
+.val-total { color: var(--primary); }
+.val-present { color: var(--success); }
+.val-absent { color: var(--danger); }
+
+/* Tabs Container */
+.tabs-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+
+/* Room Tab */
+.room-tab {
+  background: var(--surface);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  min-width: 250px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  font-family: inherit;
+  color: var(--text-main);
+}
+
+.room-tab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.room-tab.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+}
+
+.tab-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.room-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.stat-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.active-room-content {
+  background: var(--surface);
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-inputs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.meta-inputs input {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.print-only {
+  display: none;
+}
+
+/* Table */
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.student-table th {
+  background: #f8fafc;
+  padding: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 2px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.student-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+.student-row {
+  transition: background-color 0.2s ease;
+}
+
+.student-row:hover {
+  background-color: #f1f5f9;
+}
+
+.student-row.is-present {
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+.student-row.is-absent {
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+/* Checkboxes */
+.attendance-radios {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.radio-label:hover {
+  background: #e5e7eb;
+}
+
+.radio-label input[type="checkbox"] {
+  appearance: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background-color: var(--surface);
+}
+
+.radio-label input[type="checkbox"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.radio-label input[type="checkbox"]::before {
+  content: "";
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background-color: transparent;
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Present styling */
+.radio-present input[type="checkbox"]:checked {
+  border-color: var(--success);
+}
+.radio-present input[type="checkbox"]:checked::before {
+  transform: scale(1);
+  background-color: var(--success);
+}
+
+/* Absent styling */
+.radio-absent input[type="checkbox"]:checked {
+  border-color: var(--danger);
+}
+.radio-absent input[type="checkbox"]:checked::before {
+  transform: scale(1);
+  background-color: var(--danger);
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+    background-image: none;
+  }
+  
+  .app-container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .header-container {
+    margin-bottom: 1rem;
+    justify-content: center;
+  }
+  
+  .title {
+    color: black;
+    text-shadow: none;
+    text-align: center;
+  }
+  
+  .print-btn, .dashboard {
+    display: none !important;
+  }
+  
+  .tabs-container {
+    display: none !important;
+  }
+  
+  .active-room-content {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+  
+  .print-page {
+    page-break-after: always;
+    height: 277mm; /* Standard A4 height minus margins */
+    position: relative;
+    box-sizing: border-box;
+  }
+  
+  .print-page:last-child {
+    page-break-after: auto;
+  }
+  
+  .print-room-section {
+    margin-bottom: 2rem;
+  }
+  
+  .print-pdf-header {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: 'Times New Roman', serif;
+  }
+  
+  .pdf-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem 0;
+  }
+  
+  .pdf-subtitle {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .pdf-room-label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+  
+  .pdf-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.75rem;
+  }
+  
+  .pdf-table th, .pdf-table td {
+    border: 1px solid black;
+    padding: 0.25rem 0.2rem;
+    text-align: center;
+    color: black;
+    height: 22px; /* Force rows to be small enough to fit 30 easily */
+  }
+  
+  .pdf-table th {
+    background: #f0f0f0;
+    font-weight: bold;
+  }
+  
+  .text-left {
+    text-align: left !important;
+  }
+  
+  .attendance-cell {
+    font-weight: bold;
+    min-width: 60px;
+  }
+  
+  .pdf-footer-table {
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
+  .pdf-footer-table td {
+    border: 1px solid black;
+    padding: 0.75rem 1rem;
+    vertical-align: top;
+  }
+  .radio-label input[type="radio"] {
+    border-color: black;
+  }
+  
+  /* Hide the radio circles if unchecked for a cleaner look, or just keep them black/white */
+  .radio-present input[type="radio"]:checked,
+  .radio-absent input[type="radio"]:checked {
+    border-color: black;
+  }
+  .radio-present input[type="radio"]:checked::before,
+  .radio-absent input[type="radio"]:checked::before {
+    background-color: black;
+  }
+  
+  .student-row {
+    background-color: white !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tabs-container {
+    flex-wrap: nowrap;
+  }
+  
+  .room-tab {
+    min-width: 200px;
+  }
+  
+  .header-container {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .student-table th, .student-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .attendance-radios {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
