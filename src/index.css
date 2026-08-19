@@ -360,11 +360,9 @@ body {
   
   .print-page {
     page-break-after: always;
-    min-height: 95vh; 
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    page-break-inside: avoid;
     box-sizing: border-box;
+    padding-bottom: 20px;
   }
   
   .print-page:last-child {
@@ -402,15 +400,15 @@ body {
   .pdf-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.75rem;
+    font-size: 11px !important; /* Explicit small font to fit 30 rows */
   }
   
   .pdf-table th, .pdf-table td {
     border: 1px solid black;
-    padding: 0.25rem 0.2rem;
+    padding: 3px 2px !important;
     text-align: center;
     color: black;
-    height: 22px; /* Force rows to be small enough to fit 30 easily */
+    height: 20px !important; /* Force small row height */
   }
   
   .pdf-table th {
@@ -431,8 +429,9 @@ body {
     width: 100%;
     border: 2px solid black;
     border-collapse: collapse;
-    font-size: 0.8rem;
-    margin-top: auto;
+    font-size: 11px !important;
+    margin-top: 15px;
+    page-break-inside: avoid;
   }
   
   .pdf-footer-table td {
