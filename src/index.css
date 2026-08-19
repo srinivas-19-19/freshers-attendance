@@ -360,7 +360,9 @@ body {
   
   .print-page {
     page-break-after: always;
-    height: 277mm; /* Standard A4 height minus margins */
+    min-height: 95vh; 
+    display: flex;
+    flex-direction: column;
     position: relative;
     box-sizing: border-box;
   }
@@ -430,9 +432,7 @@ body {
     border: 2px solid black;
     border-collapse: collapse;
     font-size: 0.8rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+    margin-top: auto;
   }
   
   .pdf-footer-table td {
