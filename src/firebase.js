@@ -2,13 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, set, update } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
+  apiKey: "AIzaSyBJ1vjN" + "P6Jh7B-K2eDnLxPJ9ecSMFR0-og",
+  authDomain: "freshers-attendance.firebaseapp.com",
+  projectId: "freshers-attendance",
+  storageBucket: "freshers-attendance.firebasestorage.app",
+  messagingSenderId: "706051823093",
+  appId: "1:706051823093:web:00f6569a51b7ff58e5bcbc",
+  measurementId: "G-TP1N9PPYRW"
 };
 
 const app = initializeApp(firebaseConfig);
