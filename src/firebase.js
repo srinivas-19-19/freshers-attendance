@@ -39,3 +39,5 @@ export const updateMetaData = (metaData) => {
   if (!database) return;
   set(ref(database, 'metaData'), metaData);
 };
+
+export { database, app };
