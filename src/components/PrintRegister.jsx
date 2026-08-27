@@ -84,7 +84,6 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
             {index === chunks.length - 1 && (
               <div className="print-signatures">
                 <div>Class Incharge Signature</div>
-                <div>Room wise count: {roomStudents.length}</div>
                 <div>Year Incharge Signature</div>
               </div>
             )}
