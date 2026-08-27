@@ -593,7 +593,7 @@ body {
 
 @media print {
   @page {
-    size: A4 landscape;
+    size: A4 portrait;
     margin: 10mm;
   }
   
@@ -613,51 +613,51 @@ body {
 
   .print-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-bottom: 2px solid #000;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
   }
   .print-header-brand {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 6px;
   }
   .print-logo {
-    height: 60px;
+    height: 40px;
     width: auto;
   }
   .print-header-text h2 {
-    font-size: 16pt;
+    font-size: 14pt;
     margin: 0;
   }
   .print-header-text h3 {
-    font-size: 12pt;
-    margin: 4px 0 0 0;
+    font-size: 11pt;
+    margin: 2px 0 0 0;
     color: #444;
   }
   .print-header-info h4 {
-    margin: 10px 0 5px 0;
-    font-size: 14pt;
+    margin: 6px 0 3px 0;
+    font-size: 12pt;
   }
   .print-header-info p {
-    margin: 2px 0;
-    font-size: 11pt;
+    margin: 1px 0;
+    font-size: 10pt;
   }
 
   .print-room-title {
-    font-size: 14pt;
-    margin-bottom: 15px;
+    font-size: 12pt;
+    margin-bottom: 10px;
     border-bottom: 2px solid black;
-    padding-bottom: 5px;
+    padding-bottom: 3px;
   }
 
   .print-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 10pt;
-    margin-bottom: 20px;
+    font-size: 9pt;
+    margin-bottom: 15px;
     page-break-inside: auto;
   }
   .print-table thead {
@@ -669,9 +669,8 @@ body {
   }
   .print-table th, .print-table td {
     border: 1px solid #000;
-    padding: 8px 6px;
+    padding: 6px 4px;
     text-align: left;
-    height: 26px;
   }
   .print-table th {
     background-color: #f8f8f8;
