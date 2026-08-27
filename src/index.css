@@ -338,21 +338,27 @@ body {
 }
 
 .btn-mark-all {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
+  background: var(--primary);
+  color: white;
+  border: none;
   padding: 8px 16px;
   border-radius: 8px;
   font-weight: 600;
-  font-size: 0.85rem;
   cursor: pointer;
-  width: 100%;
-  color: var(--text-main);
-  transition: all 0.2s;
+  white-space: nowrap;
 }
-.btn-mark-all:hover {
-  background: #eef2ff;
-  border-color: var(--primary);
-  color: var(--primary);
+.btn-clear-all {
+  background: transparent;
+  color: #dc2626; /* Red for reset */
+  border: 1px solid #fca5a5;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-clear-all:hover {
+  background: #fef2f2;
 }
 
 /* Student Row */
@@ -633,9 +639,10 @@ body {
     margin: 0;
   }
   .print-header-text h3 {
-    font-size: 11pt;
+    font-size: 13pt;
+    font-weight: 900;
     margin: 2px 0 0 0;
-    color: #444;
+    color: #000;
   }
   .print-header-info h4 {
     margin: 6px 0 3px 0;

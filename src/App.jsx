@@ -26,7 +26,8 @@ function App() {
     undoData, 
     getStudentStatus, 
     markAttendance, 
-    markAllPresent, 
+    markAllPresent,
+    clearAllAttendance,
     undoBulkAction 
   } = useAttendance();
 
@@ -139,6 +140,10 @@ function App() {
     markAllPresent(selectedDate, selectedSession, studentsInRoom);
   };
 
+  const curriedClearAllAttendance = (studentsInRoom) => {
+    clearAllAttendance(selectedDate, selectedSession, studentsInRoom);
+  };
+
   const executePrint = () => {
     setShowPrintPreview(false);
     window.print();
@@ -193,6 +198,7 @@ function App() {
                 getStudentStatus={curriedGetStudentStatus}
                 onMarkAttendance={curriedMarkAttendance}
                 onMarkAllPresent={curriedMarkAllPresent}
+                onClearAll={curriedClearAllAttendance}
                 defaultExpanded={index === 0}
               />
             ))

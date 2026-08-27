@@ -38,6 +38,17 @@ const RoomSection = ({
           >
             Mark All Present
           </button>
+          <button 
+            className="btn-clear-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              if(window.confirm("Are you sure you want to clear all attendance for this room?")) {
+                onClearAll(students);
+              }
+            }}
+          >
+            Clear All
+          </button>
           <span className="progress-indicator">
             {markedCount} / {totalCount} marked
           </span>

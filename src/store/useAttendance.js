@@ -94,6 +94,42 @@ export const useAttendance = () => {
     }
   };
 
+  const clearAllAttendance = async (dateId, sessionId, studentsInRoom) => {
+    const previousStates = {};
+    const studentIds = studentsInRoom.map(s => s.id);
+    
+    studentIds.forEach(id => {
+      previousStates[id] = getStudentStatus(dateId, sessionId, id);
+    });
+
+    // Optimistic UI update
+    setAttendance(prev => {
+      const newData = JSON.parse(JSON.stringify(prev)); // Deep clone for safety
+      if (!newData[dateId]) newData[dateId] = {};
+      if (!newData[dateId][sessionId]) newData[dateId][sessionId] = {};
+      
+      studentIds.forEach(id => {
+        newData[dateId][sessionId][id] = STATUSES.NOT_MARKED;
+      });
+      return newData;
+    });
+
+    const success = await saveBulkAttendance(dateId, sessionId, studentIds, STATUSES.NOT_MARKED);
+    
+    if (success) {
+      showToast('Room cleared');
+      // Enable undo for 10 seconds
+      const actionTimestamp = Date.now();
+      setUndoData({ dateId, sessionId, previousStates, timestamp: actionTimestamp });
+      setTimeout(() => {
+        setUndoData(prev => prev && prev.timestamp === actionTimestamp ? null : prev);
+      }, 10000);
+    } else {
+      showToast('Failed to clear room');
+      // Revert optimism if needed
+    }
+  };
+
   const undoBulkAction = async () => {
     if (!undoData) return;
     const { dateId, sessionId, previousStates } = undoData;
@@ -124,6 +160,7 @@ export const useAttendance = () => {
     getStudentStatus,
     markAttendance,
     markAllPresent,
+    clearAllAttendance,
     undoBulkAction,
   };
 };
