@@ -26,24 +26,28 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
 
         return chunks.map((chunk, index) => (
           <div key={`${room.id}-page-${index}`} className="print-room-section">
-            <div className="print-header">
-              <div className="print-header-brand">
-                <img src={`${import.meta.env.BASE_URL}logo.png`} alt="SVCE Logo" className="print-logo" />
-                <div className="print-header-text">
-                  <h2>Sri Venkateshwara College of Engineering</h2>
-                  <h3><strong>Department of Computer Science and Engineering</strong></h3>
+            {index === 0 && (
+              <>
+                <div className="print-header">
+                  <div className="print-header-brand">
+                    <img src={`${import.meta.env.BASE_URL}logo.png`} alt="SVCE Logo" className="print-logo" />
+                    <div className="print-header-text">
+                      <h2>Sri Venkateshwara College of Engineering</h2>
+                      <h3><strong>Department of Computer Science and Engineering</strong></h3>
+                    </div>
+                  </div>
+                  <div className="print-header-info">
+                    <h4>I B.TECH I SEMESTER ATTENDANCE</h4>
+                    <p>Date: {displayDate}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="print-header-info">
-                <h4>I B.TECH I SEMESTER ATTENDANCE</h4>
-                <p>Date: {displayDate}</p>
-              </div>
-            </div>
-            
-            <div className="print-room-title">
-              <strong>ROOM {room.id}</strong> {chunks.length > 1 ? `(Page ${index + 1})` : ''}<br/>
-              CSE {room.range}
-            </div>
+                
+                <div className="print-room-title">
+                  <strong>ROOM {room.id}</strong><br/>
+                  CSE {room.range}
+                </div>
+              </>
+            )}
 
             <table className="print-table">
               <thead>
