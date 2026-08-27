@@ -7,8 +7,14 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
 
   const displayDate = formatDateForDisplay(printDate);
   // Split out the day if it exists e.g. "August 27, 2026, Thursday" -> we format it better if we want, or just use displayDate
-  const dateParts = displayDate.split(',');
-  const dayName = dateParts.length > 1 ? dateParts[dateParts.length - 1].trim() : '';
+  // Helper to chunk students into pages of exactly 30
+  const chunkArray = (array, size) => {
+    const result = [];
+    for (let i = 0; i < array.length; i += size) {
+      result.push(array.slice(i, i + size));
+    }
+    return result;
+  };
 
   return (
     <div className="print-only print-register-container">
@@ -16,25 +22,26 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
         const roomStudents = students.filter(s => s.room === room.id);
         if (roomStudents.length === 0) return null;
 
-        return (
-          <div key={room.id} className="print-room-section">
+        const chunks = chunkArray(roomStudents, 30);
+
+        return chunks.map((chunk, index) => (
+          <div key={`${room.id}-page-${index}`} className="print-room-section">
             <div className="print-header">
               <div className="print-header-brand">
                 <img src={`${import.meta.env.BASE_URL}logo.png`} alt="SVCE Logo" className="print-logo" />
                 <div className="print-header-text">
                   <h2>Sri Venkateshwara College of Engineering</h2>
-                  <h3>Department of CSE</h3>
+                  <h3><strong>Department of Computer Science and Engineering</strong></h3>
                 </div>
               </div>
               <div className="print-header-info">
-                <h4>DAILY ATTENDANCE</h4>
+                <h4>I B.TECH I SEMESTER ATTENDANCE</h4>
                 <p>Date: {displayDate}</p>
-                {dayName && <p>Day: {dayName}</p>}
               </div>
             </div>
             
             <div className="print-room-title">
-              <strong>ROOM {room.id}</strong><br/>
+              <strong>ROOM {room.id}</strong> {chunks.length > 1 ? `(Page ${index + 1})` : ''}<br/>
               CSE {room.range}
             </div>
 
@@ -50,7 +57,7 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
                 </tr>
               </thead>
               <tbody>
-                {roomStudents.map(student => (
+                {chunk.map(student => (
                   <tr key={student.id}>
                     <td>{student.sNo}</td>
                     <td>{student.rollNumber || student.admnNo || student.id}</td>
@@ -70,10 +77,9 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
               </tbody>
             </table>
 
-            {/* Page break after each room */}
             <div className="page-break"></div>
           </div>
-        );
+        ));
       })}
 
       <div className="print-legend">
