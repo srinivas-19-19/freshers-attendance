@@ -16,6 +16,7 @@ import PrintPreview from './components/PrintPreview';
 import PrintRegister from './components/PrintRegister';
 import AddStudentModal from './components/AddStudentModal';
 import DeleteStudentModal from './components/DeleteStudentModal';
+import BackToTop from './components/BackToTop';
 
 import './index.css';
 
@@ -256,6 +257,8 @@ function App() {
         students={students} 
         getStudentStatus={getStudentStatus} 
       />
+      
+      <BackToTop />
     </div>
   );
 }

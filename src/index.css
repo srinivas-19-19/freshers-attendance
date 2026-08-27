@@ -8,6 +8,7 @@
   --not-marked: #9ca3af;
   --bg-color: #f8fafc;
   --card-bg: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.75);
   --text-main: #1e293b;
   --text-muted: #64748b;
   --border: #e2e8f0;
@@ -20,6 +21,7 @@
 body.dark-mode {
   --bg-color: #0f172a;
   --card-bg: #1e293b;
+  --header-bg: rgba(30, 41, 59, 0.75);
   --text-main: #f1f5f9;
   --text-muted: #94a3b8;
   --border: #334155;
@@ -55,11 +57,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 16px;
-  background: var(--card-bg);
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
   box-shadow: var(--shadow-sm);
 }
 
@@ -467,6 +471,9 @@ body {
 .segment-btn:hover {
   color: var(--text-main);
 }
+.segment-btn:active {
+  transform: scale(0.92);
+}
 .segment-btn.active {
   box-shadow: var(--shadow-sm);
   color: white;
@@ -594,6 +601,36 @@ body {
 }
 .btn-undo:hover {
   background: rgba(255,255,255,0.3);
+}
+
+/* Back to Top FAB */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.back-to-top:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.back-to-top:active {
+  transform: translateY(2px) scale(0.95);
 }
 
 /* Modals */
