@@ -29,6 +29,15 @@ const RoomSection = ({
           <span className="room-subtitle">CSE {room.range}</span>
         </div>
         <div className="room-meta">
+          <button 
+            className="btn-mark-all"
+            onClick={(e) => {
+              e.stopPropagation();
+              onMarkAllPresent(students);
+            }}
+          >
+            Mark All Present
+          </button>
           <span className="progress-indicator">
             {markedCount} / {totalCount} marked
           </span>
@@ -40,18 +49,6 @@ const RoomSection = ({
 
       {expanded && (
         <div className="room-content">
-          <div className="room-actions">
-            <button 
-              className="btn-mark-all"
-              onClick={(e) => {
-                e.stopPropagation();
-                onMarkAllPresent(students);
-              }}
-            >
-              MARK ALL PRESENT
-            </button>
-          </div>
-          
           <div className="student-list">
             {/* Desktop Header */}
             <div className="student-list-header">

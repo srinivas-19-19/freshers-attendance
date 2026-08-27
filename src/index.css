@@ -1,15 +1,18 @@
 :root {
   --primary: #4F46E5;
   --primary-hover: #4338ca;
-  --present: #16A34A;
-  --absent: #DC2626;
-  --not-marked: #64748B;
-  --bg-color: #f8fafc;
+  --present: #10B981;
+  --absent: #EF4444;
+  --not-marked: #9CA3AF;
+  --bg-color: #F3F4F6;
   --card-bg: #ffffff;
-  --text-main: #0f172a;
-  --text-muted: #64748B;
-  --border: #e2e8f0;
+  --text-main: #111827;
+  --text-muted: #6B7280;
+  --border: #E5E7EB;
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -43,6 +46,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 10;
+  box-shadow: var(--shadow-sm);
 }
 
 .header-left {
@@ -273,9 +277,13 @@ body {
   background: var(--card-bg);
   border-radius: 16px;
   border: 1px solid var(--border);
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow-md);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.room-section:hover {
+  box-shadow: var(--shadow-lg);
 }
 
 .room-header {
@@ -396,37 +404,41 @@ body {
   font-size: 0.95rem;
 }
 
-.student-actions {
+/* Segmented Controls (Replaces old status-btn) */
+.segmented-control {
   display: flex;
-  gap: 8px;
-  width: 220px;
-  justify-content: flex-end;
-}
-
-.status-btn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
+  background: var(--bg-color);
+  padding: 4px;
+  border-radius: 12px;
   border: 1px solid var(--border);
-  background: var(--card-bg);
-  font-size: 0.8rem;
+  gap: 4px;
+}
+.segment-btn {
+  flex: 1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
   color: var(--text-muted);
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-
-.status-btn.active {
-  border-color: transparent;
+.segment-btn:hover {
+  color: var(--text-main);
+}
+.segment-btn.active {
+  box-shadow: var(--shadow-sm);
   color: white;
 }
-
 .btn-present.active { background: var(--present); }
 .btn-absent.active { background: var(--absent); }
+
+.mobile-text { display: none; }
+.desktop-text { display: inline; }
+.hide-mobile { display: block; }
+
 
 /* Mobile Optimizations */
 @media (max-width: 600px) {
@@ -435,15 +447,27 @@ body {
     gap: 12px;
     align-items: stretch;
   }
-  .header-left {
-    text-align: center;
+  .header-brand {
+    text-align: left;
   }
-  .header-right {
+  .header-logo {
+    height: 32px;
+  }
+  .header-titles h1 {
+    font-size: 1.1rem;
+  }
+  .hide-mobile {
+    display: none !important;
+  }
+  .mobile-text { display: inline; font-size: 1rem; }
+  .desktop-text { display: none; }
+
+  .header-actions {
     display: flex;
   }
   .btn-print {
-    width: 100%;
-    padding: 12px;
+    padding: 8px 12px;
+    font-size: 1.2rem;
   }
   .student-list-header {
     display: none;
@@ -451,19 +475,40 @@ body {
   .student-row {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 8px;
+    padding: 12px;
   }
   .student-info {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
   }
-  .student-sno { display: none; }
-  .student-roll { width: auto; font-size: 0.8rem; }
-  .student-actions {
+  .student-sno { 
+    display: inline-block; 
+    width: 30px; 
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .student-name {
+    flex: 1 1 auto;
+    font-size: 0.9rem;
+  }
+  .student-roll { 
+    width: auto; 
+    font-size: 0.75rem; 
+    background: #e0e7ff;
+    color: var(--primary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .segmented-control {
     width: 100%;
+    margin-top: 4px;
   }
-  .status-btn {
-    padding: 12px;
+  .segment-btn {
+    padding: 8px;
   }
 }
 

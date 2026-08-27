@@ -23,18 +23,20 @@ const StudentRow = ({ student, status, onMarkAttendance }) => {
         <div className="student-roll">{displayRoll}</div>
         <div className="student-name">{student.name}</div>
       </div>
-      <div className="student-actions">
+      <div className="student-actions segmented-control">
         <button
-          className={`status-btn btn-present ${isPresent ? 'active' : ''}`}
+          className={`segment-btn btn-present ${isPresent ? 'active' : ''}`}
           onClick={() => handleMark(STATUSES.PRESENT)}
         >
-          {isPresent && <span className="check-icon">✓</span>} PRESENT
+          <span className="desktop-text">PRESENT</span>
+          <span className="mobile-text">P</span>
         </button>
         <button
-          className={`status-btn btn-absent ${isAbsent ? 'active' : ''}`}
+          className={`segment-btn btn-absent ${isAbsent ? 'active' : ''}`}
           onClick={() => handleMark(STATUSES.ABSENT)}
         >
-          {isAbsent && <span className="cross-icon">✕</span>} ABSENT
+          <span className="desktop-text">ABSENT</span>
+          <span className="mobile-text">A</span>
         </button>
       </div>
     </div>

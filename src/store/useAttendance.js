@@ -83,9 +83,10 @@ export const useAttendance = () => {
     if (success) {
       showToast('Room marked present');
       // Enable undo for 10 seconds
-      setUndoData({ dateId, sessionId, previousStates, timestamp: Date.now() });
+      const actionTimestamp = Date.now();
+      setUndoData({ dateId, sessionId, previousStates, timestamp: actionTimestamp });
       setTimeout(() => {
-        setUndoData(prev => prev && prev.timestamp === undoData?.timestamp ? null : prev);
+        setUndoData(prev => prev && prev.timestamp === actionTimestamp ? null : prev);
       }, 10000);
     } else {
       showToast('Failed to mark room');
