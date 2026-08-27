@@ -20,6 +20,20 @@ import DeleteStudentModal from './components/DeleteStudentModal';
 import './index.css';
 
 function App() {
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('darkMode', 'true');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('darkMode', 'false');
+    }
+  }, [darkMode]);
+
   const { 
     attendance, 
     toastMsg, 
@@ -156,7 +170,11 @@ function App() {
   return (
     <div className="app-container">
       <div className="no-print">
-        <AttendanceHeader onPrintClick={() => setShowPrintPreview(true)} />
+        <AttendanceHeader 
+          onPrintClick={() => setShowPrintPreview(true)} 
+          darkMode={darkMode}
+          onToggleDarkMode={() => setDarkMode(!darkMode)}
+        />
         
         <DateNavigator 
           selectedDateId={selectedDate} 

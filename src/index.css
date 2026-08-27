@@ -1,18 +1,32 @@
 :root {
-  --primary: #4F46E5;
+  --primary: #4f46e5;
   --primary-hover: #4338ca;
-  --present: #10B981;
-  --absent: #EF4444;
-  --not-marked: #9CA3AF;
-  --bg-color: #F3F4F6;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --present: #10b981;
+  --absent: #ef4444;
+  --not-marked: #9ca3af;
+  --bg-color: #f8fafc;
   --card-bg: #ffffff;
-  --text-main: #111827;
-  --text-muted: #6B7280;
-  --border: #E5E7EB;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode {
+  --bg-color: #0f172a;
+  --card-bg: #1e293b;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -91,6 +105,22 @@ body {
   background: var(--primary-hover);
 }
 
+.btn-dark-mode {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 8px;
+  transition: all 0.2s;
+}
+
+.btn-dark-mode:hover {
+  background: var(--bg-color);
+}
+
 /* Date Navigator */
 .date-navigator-container {
   background: var(--card-bg);
@@ -118,7 +148,7 @@ body {
   white-space: nowrap;
 }
 .date-nav-btn:hover {
-  background: #f1f5f9;
+  background: var(--bg-color);
   color: var(--text-main);
 }
 .date-picker-wrapper {
@@ -159,7 +189,7 @@ body {
   border: 1px solid var(--border);
   padding: 8px 12px;
   border-radius: 8px;
-  background: #f8fafc;
+  background: var(--bg-color);
 }
 .print-checklist {
   list-style: none;
@@ -208,7 +238,7 @@ body {
 
 .session-tab.active {
   border-color: var(--primary);
-  background: #eef2ff;
+  background: var(--bg-color);
   color: var(--primary);
 }
 
@@ -244,6 +274,8 @@ body {
   font-size: 0.95rem;
   font-family: inherit;
   outline: none;
+  background: var(--card-bg);
+  color: var(--text-main);
 }
 .search-input:focus {
   border-color: var(--primary);
@@ -257,6 +289,7 @@ body {
   font-size: 0.95rem;
   font-family: inherit;
   background: var(--card-bg);
+  color: var(--text-main);
   cursor: pointer;
   outline: none;
 }
@@ -296,7 +329,7 @@ body {
   transition: background 0.2s;
 }
 .room-header:hover {
-  background: #f1f5f9;
+  background: var(--bg-color);
 }
 
 .room-title h3 {
@@ -333,7 +366,7 @@ body {
 
 .room-actions {
   padding: 12px 16px;
-  background: #f8fafc;
+  background: var(--bg-color);
   border-bottom: 1px solid var(--border);
 }
 
@@ -349,8 +382,8 @@ body {
 }
 .btn-clear-all {
   background: transparent;
-  color: #dc2626; /* Red for reset */
-  border: 1px solid #fca5a5;
+  color: var(--danger);
+  border: 1px solid var(--danger);
   padding: 8px 16px;
   border-radius: 8px;
   font-weight: 600;
@@ -365,7 +398,7 @@ body {
 .student-list-header {
   display: flex;
   padding: 12px 16px;
-  background: #f1f5f9;
+  background: var(--bg-color);
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-muted);
@@ -503,7 +536,7 @@ body {
   .student-roll { 
     width: auto; 
     font-size: 0.75rem; 
-    background: #e0e7ff;
+    background: var(--bg-color);
     color: var(--primary);
     padding: 2px 6px;
     border-radius: 4px;
@@ -581,12 +614,12 @@ body {
   width: 90%;
   box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
 }
-.modal h2 { font-size: 1.25rem; margin-bottom: 16px; }
-.info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
-.print-instruction { font-size: 0.85rem; color: var(--text-muted); margin: 16px 0; background: #f1f5f9; padding: 12px; border-radius: 8px; }
+.modal h2 { font-size: 1.25rem; margin-bottom: 16px; color: var(--text-main); }
+.info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-main); }
+.print-instruction { font-size: 0.85rem; color: var(--text-muted); margin: 16px 0; background: var(--bg-color); padding: 12px; border-radius: 8px; }
 .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
 .modal-actions button { padding: 10px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; }
-.btn-secondary { background: #e2e8f0; color: var(--text-main); }
+.btn-secondary { background: var(--border); color: var(--text-main); }
 .btn-primary { background: var(--primary); color: white; }
 
 /* -------------------------------------
