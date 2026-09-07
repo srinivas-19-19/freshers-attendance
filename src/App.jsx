@@ -17,10 +17,13 @@ import PrintRegister from './components/PrintRegister';
 import AddStudentModal from './components/AddStudentModal';
 import DeleteStudentModal from './components/DeleteStudentModal';
 import BackToTop from './components/BackToTop';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 import './index.css';
 
 function App() {
+  const container = React.useRef();
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem('darkMode') === 'true';
   });
@@ -34,6 +37,20 @@ function App() {
       localStorage.setItem('darkMode', 'false');
     }
   }, [darkMode]);
+
+  useGSAP(() => {
+    let mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from('.section-group', {
+        opacity: 0,
+        y: 24,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'back.out(1.2)'
+      });
+    });
+    return () => mm.revert();
+  }, { scope: container, dependencies: [] });
 
   const { 
     attendance, 
@@ -169,7 +186,7 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container" ref={container}>
       <div className="no-print">
         <AttendanceHeader 
           onPrintClick={() => setShowPrintPreview(true)} 

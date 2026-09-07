@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import StudentRow from './StudentRow';
 import { STATUSES } from '../config/constants';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 const SectionGroup = ({ 
   section, 
@@ -12,6 +14,24 @@ const SectionGroup = ({
   defaultExpanded = false
 }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const containerRef = useRef();
+
+  useGSAP(() => {
+    if (expanded) {
+      let mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.from('.student-row', {
+          opacity: 0,
+          scale: 0.98,
+          y: 16,
+          duration: 0.4,
+          stagger: { each: 0.04, from: 'start' },
+          ease: 'back.out(1.4)'
+        });
+      });
+      return () => mm.revert();
+    }
+  }, { scope: containerRef, dependencies: [expanded] });
 
   const markedCount = students.filter(
     s => getStudentStatus(s.id) !== STATUSES.NOT_MARKED
@@ -20,7 +40,7 @@ const SectionGroup = ({
   const totalCount = students.length;
 
   return (
-    <div className="section-group">
+    <div className="section-group" ref={containerRef}>
       <div 
         className="section-header" 
         onClick={() => setExpanded(!expanded)}
