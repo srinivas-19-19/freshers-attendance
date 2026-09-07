@@ -58,9 +58,9 @@ export const useAttendance = () => {
     }
   };
 
-  const markAllPresent = async (dateId, sessionId, studentsInRoom) => {
+  const markAllPresent = async (dateId, sessionId, studentsInSection) => {
     const previousStates = {};
-    const studentIds = studentsInRoom.map(s => s.id);
+    const studentIds = studentsInSection.map(s => s.id);
     
     studentIds.forEach(id => {
       previousStates[id] = getStudentStatus(dateId, sessionId, id);
@@ -81,7 +81,7 @@ export const useAttendance = () => {
     const success = await saveBulkAttendance(dateId, sessionId, studentIds, STATUSES.PRESENT);
     
     if (success) {
-      showToast('Room marked present');
+      showToast('Section marked present');
       // Enable undo for 10 seconds
       const actionTimestamp = Date.now();
       setUndoData({ dateId, sessionId, previousStates, timestamp: actionTimestamp });
@@ -89,14 +89,14 @@ export const useAttendance = () => {
         setUndoData(prev => prev && prev.timestamp === actionTimestamp ? null : prev);
       }, 10000);
     } else {
-      showToast('Failed to mark room');
+      showToast('Failed to mark section');
       // We would want to revert here ideally by re-fetching or reverting local state
     }
   };
 
-  const clearAllAttendance = async (dateId, sessionId, studentsInRoom) => {
+  const clearAllAttendance = async (dateId, sessionId, studentsInSection) => {
     const previousStates = {};
-    const studentIds = studentsInRoom.map(s => s.id);
+    const studentIds = studentsInSection.map(s => s.id);
     
     studentIds.forEach(id => {
       previousStates[id] = getStudentStatus(dateId, sessionId, id);
@@ -117,7 +117,7 @@ export const useAttendance = () => {
     const success = await saveBulkAttendance(dateId, sessionId, studentIds, STATUSES.NOT_MARKED);
     
     if (success) {
-      showToast('Room cleared');
+      showToast('Section cleared');
       // Enable undo for 10 seconds
       const actionTimestamp = Date.now();
       setUndoData({ dateId, sessionId, previousStates, timestamp: actionTimestamp });
@@ -125,7 +125,7 @@ export const useAttendance = () => {
         setUndoData(prev => prev && prev.timestamp === actionTimestamp ? null : prev);
       }, 10000);
     } else {
-      showToast('Failed to clear room');
+      showToast('Failed to clear section');
       // Revert optimism if needed
     }
   };

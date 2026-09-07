@@ -27,7 +27,7 @@ const PrintPreview = ({ selectedPrintDate, onDateChange, onCancel, onPrint }) =>
           <ul className="print-checklist">
             <li>✓ Forenoon Attendance</li>
             <li>✓ Afternoon Attendance</li>
-            <li>✓ All Rooms</li>
+            <li>✓ All Sections</li>
             <li>✓ All Students</li>
           </ul>
         </div>

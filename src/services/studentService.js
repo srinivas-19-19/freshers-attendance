@@ -24,8 +24,8 @@ export const subscribeToCustomStudents = (callback) => {
       // Combine base with added
       finalStudents = [...finalStudents, ...addedStudents];
       
-      // Filter out deleted
-      finalStudents = finalStudents.filter(s => !deletedIds.includes(s.id));
+      // Filter out deleted and undefined sections (legacy data)
+      finalStudents = finalStudents.filter(s => !deletedIds.includes(s.id) && s.section && s.section !== 'undefined');
     }
     
     // Sort by S.No to maintain order

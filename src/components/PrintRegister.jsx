@@ -2,7 +2,7 @@ import React from 'react';
 import { SESSIONS, STATUSES } from '../config/constants';
 import { formatDateForDisplay } from '../utils/dateUtils';
 
-const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
+const PrintRegister = ({ printDate, sections, students, getStudentStatus }) => {
   if (!printDate) return null;
 
   const displayDate = formatDateForDisplay(printDate);
@@ -18,14 +18,14 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
 
   return (
     <div className="print-only print-register-container">
-      {rooms.map((room) => {
-        const roomStudents = students.filter(s => s.room === room.id);
-        if (roomStudents.length === 0) return null;
+      {sections.map((section) => {
+        const sectionStudents = students.filter(s => s.section === section.id);
+        if (sectionStudents.length === 0) return null;
 
-        const chunks = chunkArray(roomStudents, 30);
+        const chunks = chunkArray(sectionStudents, 33);
 
         return chunks.map((chunk, index) => (
-          <div key={`${room.id}-page-${index}`} className="print-room-section">
+          <div key={`${section.id}-page-${index}`} className="print-room-section">
             {index === 0 && (
               <>
                 <div className="print-header">
@@ -43,8 +43,8 @@ const PrintRegister = ({ printDate, rooms, students, getStudentStatus }) => {
                 </div>
                 
                 <div className="print-room-title">
-                  <strong>ROOM {room.id}</strong><br/>
-                  CSE {room.range}
+                  <strong>SECTION {section.id}</strong><br/>
+                  Room {section.room} (CSE {section.range})
                 </div>
               </>
             )}

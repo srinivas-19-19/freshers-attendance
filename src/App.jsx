@@ -9,8 +9,8 @@ import AttendanceHeader from './components/AttendanceHeader';
 import DateNavigator from './components/DateNavigator';
 import SessionSelector from './components/SessionSelector';
 import SearchStudent from './components/SearchStudent';
-import RoomFilter from './components/RoomFilter';
-import RoomSection from './components/RoomSection';
+import SectionFilter from './components/SectionFilter';
+import SectionGroup from './components/SectionGroup';
 import Toast from './components/Toast';
 import PrintPreview from './components/PrintPreview';
 import PrintRegister from './components/PrintRegister';
@@ -55,18 +55,17 @@ function App() {
     return () => unsubscribe();
   }, []);
   
-  const addStudent = async (name, rollNumber) => {
+  const addStudent = async (name, rollNumber, section) => {
     const newId = `student_${Date.now()}`;
     let maxSNo = students.reduce((max, s) => (s.sNo && s.sNo > max ? s.sNo : max), 0);
-    // Ensure newly added students start from 434 if maxSNo is below 433
-    maxSNo = Math.max(433, maxSNo);
     
     const newStudent = {
       id: newId,
       sNo: maxSNo + 1,
       name,
       rollNumber: rollNumber || '',
-      room: '10405'
+      section: section,
+      room: {'A':'10101','B':'10102','C':'10103','D':'10104','E':'10105','F':'10106','G':'10108'}[section]
     };
     // Optimistic update
     setStudents(prev => [...prev, newStudent]);
@@ -85,7 +84,7 @@ function App() {
   const [selectedSession, setSelectedSession] = useState(SESSIONS[0].id);
   
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedRoomFilter, setSelectedRoomFilter] = useState(null);
+  const [selectedSectionFilter, setSelectedSectionFilter] = useState(null);
   
   const [showPrintPreview, setShowPrintPreview] = useState(false);
   const [showAddStudent, setShowAddStudent] = useState(false);
@@ -100,7 +99,7 @@ function App() {
   }, [selectedDate, showPrintPreview]);
 
   // Group and filter logic
-  const { rooms, filteredStudents } = useMemo(() => {
+  const { sections, filteredStudents } = useMemo(() => {
     let filtered = students;
     
     if (searchQuery.trim()) {
@@ -111,37 +110,38 @@ function App() {
       });
     }
 
-    if (selectedRoomFilter) {
-      filtered = filtered.filter(s => s.room === selectedRoomFilter);
+    if (selectedSectionFilter) {
+      filtered = filtered.filter(s => s.section === selectedSectionFilter);
     }
 
     const grouped = {};
     filtered.forEach(student => {
-      if (!grouped[student.room]) {
-        grouped[student.room] = [];
+      if (!grouped[student.section]) {
+        grouped[student.section] = [];
       }
-      grouped[student.room].push(student);
+      grouped[student.section].push(student);
     });
 
     // Determine rooms from the actual data so we aren't hardcoding 10101 if it changes later
-    const availableRoomIds = Object.keys(grouped).sort();
+    const availableSectionIds = Object.keys(grouped).sort();
     
-    const processedRooms = availableRoomIds
-      .map(roomId => {
-        const studentsInRoom = grouped[roomId] || [];
-        const range = studentsInRoom.length > 0 
-            ? `${studentsInRoom[0].sNo}-${studentsInRoom[studentsInRoom.length - 1].sNo}` 
+    const processedSections = availableSectionIds
+      .map(sectionId => {
+        const studentsInSection = grouped[sectionId] || [];
+        const range = studentsInSection.length > 0 
+            ? `${studentsInSection[0].sNo}-${studentsInSection[studentsInSection.length - 1].sNo}` 
             : '';
         return {
-          id: roomId,
+          id: sectionId,
+          room: studentsInSection.length > 0 ? studentsInSection[0].room : '',
           range: range,
-          students: studentsInRoom
+          students: studentsInSection
         };
       })
-      .filter(room => room.students.length > 0);
+      .filter(section => section.students.length > 0);
 
-    return { rooms: processedRooms, filteredStudents: filtered };
-  }, [searchQuery, selectedRoomFilter, students]);
+    return { sections: processedSections, filteredStudents: filtered };
+  }, [searchQuery, selectedSectionFilter, students]);
 
   const curriedGetStudentStatus = (studentId) => {
     return getStudentStatus(selectedDate, selectedSession, studentId);
@@ -151,12 +151,12 @@ function App() {
     markAttendance(selectedDate, selectedSession, studentId, status);
   };
 
-  const curriedMarkAllPresent = (studentsInRoom) => {
-    markAllPresent(selectedDate, selectedSession, studentsInRoom);
+  const curriedMarkAllPresent = (studentsInSection) => {
+    markAllPresent(selectedDate, selectedSession, studentsInSection);
   };
 
-  const curriedClearAllAttendance = (studentsInRoom) => {
-    clearAllAttendance(selectedDate, selectedSession, studentsInRoom);
+  const curriedClearAllAttendance = (studentsInSection) => {
+    clearAllAttendance(selectedDate, selectedSession, studentsInSection);
   };
 
   const executePrint = () => {
@@ -164,8 +164,8 @@ function App() {
     window.print();
   };
 
-  const handleAddStudent = (name, rollNumber) => {
-    addStudent(name, rollNumber);
+  const handleAddStudent = (name, rollNumber, section) => {
+    addStudent(name, rollNumber, section);
   };
 
   return (
@@ -190,10 +190,10 @@ function App() {
         
         <div className="controls-container">
           <SearchStudent searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-          <RoomFilter 
-            rooms={rooms.map(r => ({id: r.id}))} 
-            selectedRoom={selectedRoomFilter} 
-            onRoomChange={setSelectedRoomFilter} 
+          <SectionFilter 
+            sections={sections.map(s => ({id: s.id}))} 
+            selectedSection={selectedSectionFilter} 
+            onSectionChange={setSelectedSectionFilter} 
           />
           <button className="btn-add-student" onClick={() => setShowAddStudent(true)}>
             ➕ Add Student
@@ -204,16 +204,16 @@ function App() {
         </div>
 
         <main className="main-content">
-          {rooms.length === 0 ? (
+          {sections.length === 0 ? (
             <div className="empty-state">
               {searchQuery ? `No student found for "${searchQuery}".` : 'No students found.'}
             </div>
           ) : (
-            rooms.map((room, index) => (
-              <RoomSection
-                key={room.id}
-                room={room}
-                students={room.students}
+            sections.map((section, index) => (
+              <SectionGroup
+                key={section.id}
+                section={section}
+                students={section.students}
                 getStudentStatus={curriedGetStudentStatus}
                 onMarkAttendance={curriedMarkAttendance}
                 onMarkAllPresent={curriedMarkAllPresent}
@@ -253,7 +253,7 @@ function App() {
 
       <PrintRegister 
         printDate={printDate}
-        rooms={rooms.length > 0 ? rooms : []} 
+        sections={sections.length > 0 ? sections : []} 
         students={students} 
         getStudentStatus={getStudentStatus} 
       />

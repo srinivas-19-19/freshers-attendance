@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import StudentRow from './StudentRow';
 import { STATUSES } from '../config/constants';
 
-const RoomSection = ({ 
-  room, 
+const SectionGroup = ({ 
+  section, 
   students, 
   getStudentStatus, 
   onMarkAttendance, 
   onMarkAllPresent,
+  onClearAll,
   defaultExpanded = false
 }) => {
   const [expanded, setExpanded] = useState(defaultExpanded);
@@ -19,16 +20,16 @@ const RoomSection = ({
   const totalCount = students.length;
 
   return (
-    <div className="room-section">
+    <div className="section-group">
       <div 
-        className="room-header" 
+        className="section-header" 
         onClick={() => setExpanded(!expanded)}
       >
-        <div className="room-title">
-          <h3>ROOM {room.id}</h3>
-          <span className="room-subtitle">CSE {room.range}</span>
+        <div className="section-title">
+          <h3>SECTION {section.id}</h3>
+          <span className="section-subtitle">Room {section.room} ({section.range})</span>
         </div>
-        <div className="room-meta">
+        <div className="section-meta">
           <button 
             className="btn-mark-all"
             onClick={(e) => {
@@ -42,7 +43,7 @@ const RoomSection = ({
             className="btn-clear-all"
             onClick={(e) => {
               e.stopPropagation();
-              if(window.confirm("Are you sure you want to clear all attendance for this room?")) {
+              if(window.confirm("Are you sure you want to clear all attendance for this section?")) {
                 onClearAll(students);
               }
             }}
@@ -59,12 +60,12 @@ const RoomSection = ({
       </div>
 
       {expanded && (
-        <div className="room-content">
+        <div className="section-content">
           <div className="student-list">
             {/* Desktop Header */}
             <div className="student-list-header">
               <div className="col-sno">S.NO</div>
-              <div className="col-roll">ROLL NO</div>
+              <div className="col-roll">ROLL/ADMN NO</div>
               <div className="col-name">STUDENT NAME</div>
               <div className="col-status">STATUS</div>
             </div>
@@ -78,7 +79,7 @@ const RoomSection = ({
               />
             ))}
             {students.length === 0 && (
-              <div className="empty-state">No students assigned to this room.</div>
+              <div className="empty-state">No students assigned to this section.</div>
             )}
           </div>
         </div>
@@ -87,4 +88,4 @@ const RoomSection = ({
   );
 };
 
-export default RoomSection;
+export default SectionGroup;

@@ -3,7 +3,10 @@ import React, { useState } from 'react';
 const AddStudentModal = ({ onClose, onAdd }) => {
   const [name, setName] = useState('');
   const [rollNumber, setRollNumber] = useState('');
+  const [section, setSection] = useState('A');
   const [error, setError] = useState('');
+
+  const sections = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,7 +15,7 @@ const AddStudentModal = ({ onClose, onAdd }) => {
       return;
     }
     
-    onAdd(name.trim(), rollNumber.trim());
+    onAdd(name.trim(), rollNumber.trim(), section);
     onClose();
   };
 
@@ -45,6 +48,19 @@ const AddStudentModal = ({ onClose, onAdd }) => {
               onChange={(e) => setRollNumber(e.target.value)}
               placeholder="e.g. CSE123"
             />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="section">Section *</label>
+            <select 
+              id="section"
+              value={section}
+              onChange={(e) => setSection(e.target.value)}
+            >
+              {sections.map(s => (
+                <option key={s} value={s}>CSE-{s}</option>
+              ))}
+            </select>
           </div>
           
           <div className="modal-actions">
