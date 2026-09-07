@@ -1,46 +1,57 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
 
 
+
 :root {
-  --primary: #171717;
-  --primary-hover: #404040;
-  --accent: #A16207;
-  --accent-hover: #ca8a04;
-  --danger: #DC2626;
-  --danger-hover: #b91c1c;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-light: rgba(99, 102, 241, 0.1);
+  --accent: #ec4899;
+  --accent-hover: #db2777;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
   --present: #10b981;
+  --present-hover: #059669;
+  --present-light: rgba(16, 185, 129, 0.1);
   --absent: #ef4444;
-  --not-marked: #9ca3af;
-  --bg-color: #fafafa;
-  --card-bg: #FFFFFF;
-  --header-bg: rgba(255, 255, 255, 0.85);
-  --text-main: #171717;
-  --text-muted: #475569;
-  --border: #E5E5E5;
+  --absent-hover: #dc2626;
+  --absent-light: rgba(239, 68, 68, 0.1);
+  --not-marked: #94a3b8;
+  --bg-color: #f8fafc;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --header-bg: rgba(255, 255, 255, 0.75);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: rgba(226, 232, 240, 0.8);
   --font-family: 'Work Sans', system-ui, sans-serif;
   --font-heading: 'Outfit', system-ui, sans-serif;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-  --radius: 12px;
+  --shadow-md: 0 8px 32px rgba(31, 38, 135, 0.07);
+  --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --radius: 16px;
+  --radius-sm: 10px;
 }
+
+
 
 
 
 body.dark-mode {
-  --bg-color: #0a0a0a;
-  --card-bg: #171717;
-  --header-bg: rgba(10, 10, 10, 0.85);
-  --text-main: #f5f5f5;
-  --text-muted: #a3a3a3;
-  --border: #262626;
-  --primary: #ffffff;
-  --primary-hover: #e5e5e5;
-  --accent: #d97706;
-  --accent-hover: #f59e0b;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --bg-color: #0f172a;
+  --card-bg: rgba(30, 41, 59, 0.7);
+  --header-bg: rgba(15, 23, 42, 0.75);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: rgba(51, 65, 85, 0.8);
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --primary-light: rgba(129, 140, 248, 0.15);
+  --accent: #f472b6;
+  --accent-hover: #ec4899;
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
+
+
 
 
 * {
@@ -52,10 +63,17 @@ body.dark-mode {
 body {
   font-family: var(--font-family);
   background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+  background-attachment: fixed;
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
+
 
 .app-container {
   max-width: 800px;
@@ -134,7 +152,7 @@ body {
 }
 
 .btn-dark-mode:hover {
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 /* Date Navigator */
@@ -164,7 +182,7 @@ body {
   white-space: nowrap;
 }
 .date-nav-btn:hover {
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--text-main);
 }
 .date-picker-wrapper {
@@ -205,7 +223,7 @@ body {
   border: 1px solid var(--border);
   padding: 10px 12px; min-height: 44px;
   border-radius: var(--radius);
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
 }
 .print-checklist {
   list-style: none;
@@ -254,7 +272,7 @@ body {
 
 .session-tab.active {
   border-color: var(--primary);
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
   color: var(--primary);
 }
 
@@ -324,6 +342,11 @@ body {
 /* Section Group */
 .section-group {
   background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: var(--shadow-md);
+  background: var(--card-bg);
   border-radius: 16px;
   border: 1px solid var(--border);
   margin-bottom: 24px;
@@ -345,7 +368,7 @@ body {
   transition: background 0.2s;
 }
 .section-header:hover {
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .section-title h3 {
@@ -382,7 +405,7 @@ body {
 
 .section-actions {
   padding: 12px 16px;
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
   border-bottom: 1px solid var(--border);
 }
 
@@ -390,11 +413,17 @@ body {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 10px 16px; min-height: 44px;
-  border-radius: var(--radius);
+  padding: 8px 16px; min-height: 40px;
+  border-radius: var(--radius-sm);
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+}
+.btn-mark-all:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
 }
 .btn-clear-all {
   background: transparent;
@@ -414,7 +443,7 @@ body {
 .student-list-header {
   display: flex;
   padding: 12px 16px;
-  background: var(--bg-color);
+  background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
   font-size: 0.75rem;
   font-weight: 600; font-family: var(--font-heading);
   color: var(--text-muted);
@@ -460,18 +489,19 @@ body {
 }
 
 /* Segmented Controls (Replaces old status-btn) */
+
 .segmented-control {
   display: flex;
-  background: var(--bg-color);
+  background: rgba(0,0,0,0.03);
   padding: 4px;
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
-  gap: 4px;
 }
+
 .segment-btn {
   flex: 1;
-  padding: 6px 12px;
-  border-radius: var(--radius);
+  padding: 8px 12px;
+  border-radius: 8px;
   border: none;
   background: transparent;
   font-size: 0.85rem;
@@ -480,18 +510,25 @@ body {
   color: var(--text-muted);
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.segment-btn:hover {
-  color: var(--text-main);
-}
-.segment-btn:active {
-  transform: scale(0.92);
-}
-.segment-btn.active {
-  box-shadow: var(--shadow-sm);
+
+.segment-btn.active.btn-present {
+  background: var(--present);
   color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+  transform: scale(1.02);
 }
-.btn-present.active { background: var(--present); }
-.btn-absent.active { background: var(--absent); }
+
+.segment-btn.active.btn-absent {
+  background: var(--absent);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+  transform: scale(1.02);
+}
+
+.segment-btn:hover:not(.active) {
+  background: rgba(0,0,0,0.05);
+}
+
 
 .mobile-text { display: none; }
 .desktop-text { display: inline; }
@@ -555,7 +592,7 @@ body {
   .student-roll { 
     width: auto; 
     font-size: 0.75rem; 
-    background: var(--bg-color);
+    background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4);
     color: var(--primary);
     padding: 2px 6px;
     border-radius: 4px;
@@ -665,11 +702,26 @@ body {
 }
 .modal h2 { font-size: 1.25rem; margin-bottom: 16px; color: var(--text-main); }
 .info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-main); }
-.print-instruction { font-size: 0.85rem; color: var(--text-muted); margin: 16px 0; background: var(--bg-color); padding: 12px; border-radius: var(--radius); }
+.print-instruction { font-size: 0.85rem; color: var(--text-muted); margin: 16px 0; background: var(--card-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); padding: 12px; border-radius: var(--radius); }
 .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
 .modal-actions button { padding: 10px 16px; border-radius: var(--radius); font-weight: 600; cursor: pointer; border: none; }
 .btn-secondary { background: var(--border); color: var(--text-main); }
-.btn-primary { background: var(--primary); color: white; }
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+  border: none;
+  padding: 10px 20px; min-height: 44px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600; font-family: var(--font-heading);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+}
 
 /* -------------------------------------
    PRINT STYLES
@@ -686,10 +738,19 @@ body {
   }
   
   body {
-    background: white;
-    color: black;
-    font-family: sans-serif;
-  }
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
 
   .no-print {
     display: none !important;
@@ -861,6 +922,38 @@ body {
   border-radius: var(--radius);
   margin-top: 16px;
   font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .controls-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px 16px;
+    background: var(--header-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -4px 6px -1px rgba(0,0,0,0.05);
+    z-index: 50;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .controls-container .search-student {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+  .app-container {
+    padding-bottom: 140px; /* space for the fixed controls */
+  }
+  .section-filter-select, .btn-add-student {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
